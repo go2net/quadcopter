@@ -1,7 +1,14 @@
 #include "stm32f10x.h"
 #include "hardware_conf.h"
 #include "common.h"
-
+/***********************************************************************************
+* @fn      delay_ms
+*
+* @brief   ms max = 230  @72MHz
+*                 = 2000 @8Mhz
+*
+* @return  none
+*/
 void delay_ms(uint32_t ms)
 {
   SysTick->LOAD  = (SystemCoreClock / 1000) * ms - 1;      /* set reload register */

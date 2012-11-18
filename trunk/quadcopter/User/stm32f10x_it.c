@@ -20,6 +20,13 @@
   */
 void NMI_Handler(void)
 {
+  /* This interrupt is generated when HSE clock fails */
+  if (RCC_GetITStatus(RCC_IT_CSS) != RESET)
+  {
+    SystemCoreClockUpdate();
+    /* Clear Clock Security System interrupt pending bit */
+    RCC_ClearITPendingBit(RCC_IT_CSS);
+  }  
 }
 
 /**
