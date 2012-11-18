@@ -1,11 +1,7 @@
 #include "MS5611.h"
 #include "IIC.h"
 
-static struct MS5611_Coff
-{
-  uint16_t MS5611_Coff[6];
-  uint16_t MS5611_CRC;
-}imCoff;
+MS5611_Data_Struct MS5611_Data;
 
 static void MS5611_Send_Command(uint8_t cmd)
 {
@@ -63,13 +59,30 @@ void MS5611_Read_Coefficients(void)
 {
   uint8_t data[2];
   uint32_t i;
-  MS5611_Send_Command(MS5611_READ_PROM_Coff1);
+  
   for(i=0;i<6;i++)
   {
+    MS5611_Send_Command(MS5611_READ_PROM_Coff(i+1));
     MS5611_Read_Bytes(data, 2);
-    imCoff.MS5611_Coff[i] = ((uint16_t)(data[0])<<8) | (uint16_t)(data[1]);
+    MS5611_Data.MS5611_Coff[i] = ((uint16_t)(data[0])<<8) | (uint16_t)(data[1]);
   }
+  MS5611_Send_Command(MS5611_READ_PROM_CRC);
   MS5611_Read_Bytes(data, 2);
-  imCoff.MS5611_CRC = (data[1])|0x07;
+  MS5611_Data.MS5611_CRC = (data[1])|0x07;
 }
 
+
+uint32_t MS5611_ADC_Read(void)
+{
+  uint8_t ADC_Result[3];
+  uint32_t result = 0;
+  
+  MS5611_Send_Command(MS5611_READ_ADC); 
+  MS5611_Read_Bytes(ADC_Result, 3);
+  
+  result |= (((uint32_t)(ADC_Result[0]))<<16);
+  result |= (((uint32_t)(ADC_Result[1]))<<8);
+  result |= ((uint32_t)(ADC_Result[2]));
+  
+  return result;
+}
