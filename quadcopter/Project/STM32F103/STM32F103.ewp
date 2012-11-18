@@ -296,6 +296,8 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\User</state>
           <state>$PROJ_DIR$\..\..\User\CC2520</state>
+          <state>$PROJ_DIR$\..\..\User\MPU6050</state>
+          <state>$PROJ_DIR$\..\..\User\MS5611</state>
           <state>$PROJ_DIR$\..\..\Libraries\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\Libraries\CMSIS\Core\CM3</state>
           <state>$PROJ_DIR$\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc</state>
@@ -1840,12 +1842,6 @@
     </settings>
   </configuration>
   <group>
-    <name>CC2520</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\User\CC2520\CC2520.c</name>
-    </file>
-  </group>
-  <group>
     <name>CMSIS</name>
     <file>
       <name>$PROJ_DIR$\..\..\Libraries\CMSIS\Core\CM3\system_stm32f10x.c</name>
@@ -1943,8 +1939,29 @@
   </group>
   <group>
     <name>User</name>
+    <group>
+      <name>CC2520</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\User\CC2520\CC2520.c</name>
+      </file>
+    </group>
+    <group>
+      <name>MPU6050</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\User\MPU6050\MPU6050.c</name>
+      </file>
+    </group>
+    <group>
+      <name>MS5611</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\User\MS5611\MS5611.c</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\User\common.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\User\IIC.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\User\main.c</name>
