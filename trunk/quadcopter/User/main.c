@@ -3,6 +3,8 @@
 #include "stm32f10x.h"
 #include "common.h"
 #include "CC2520.h"
+#include "IIC.h"
+#include "MS5611.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -14,6 +16,8 @@ uint16_t CCR1_Val = 2047;
 uint16_t CCR2_Val = 1535;
 uint16_t CCR3_Val = 1023;
 uint16_t CCR4_Val = 511;
+int32_t t=0;
+
 /* Private function prototypes -----------------------------------------------*/
 void System_Init(void);
 void RCC_Configuration(void);
@@ -26,17 +30,14 @@ int main(void)
 {
   System_Init(); 
   PWM_Configuration();
-  //IIC_Configuration();
-  
-  
-  
+  IIC_Configuration();
+  MS5611_Init();
 
-  
-  
   
   /* Infinite loop */
   while (1)
   {   
+    MS5611_Get_TP();
     LED_Red_Reset();
     delay_ms(230);
     delay_ms(230);
@@ -49,7 +50,6 @@ int main(void)
     delay_ms(230);
     delay_ms(230);    
     LED_Blue_Set();
-
   }
 }
 
