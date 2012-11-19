@@ -16,7 +16,7 @@
 * CONSTANTS AND DEFINES
 */
 // Address
-#define MS5611_ADDRESS                  0xEC
+#define MS5611_ADDRESS                  0xEE//0xEC
    
 
 // Commands 
@@ -64,12 +64,34 @@
    
 typedef struct 
 {
-  uint32_t Pressure;
-  uint32_t Temperature;
-  uint16_t MS5611_Coff[6];
+  uint32_t Pres_ADC;
+  uint32_t Temp_ADC;
+  uint16_t MS5611_Coff[7];
+} MS5611_PROM_Struct;   
+
+typedef struct 
+{
+  uint32_t Pres_ADC;
+  uint32_t Temp_ADC;
+  uint16_t MS5611_SENS_T1;
+  uint16_t MS5611_OFF_T1;
+  uint16_t MS5611_TCS;
+  uint16_t MS5611_TCO;
+  uint16_t MS5611_TREF;
+  uint16_t MS5611_TEMPSENS;
   uint16_t MS5611_CRC;
-} MS5611_Data_Struct , *pMS5611_Data_Struct;   
-   
+} MS5611_Data_Struct;
+
+typedef union
+{
+  MS5611_PROM_Struct MS5611_PROM;
+  MS5611_Data_Struct MS5611_Data;
+} MS5611_Data_Union,*pMS5611_Data_Union;
+
+extern int32_t Pressure;
+extern int32_t Temperature;
+void MS5611_Init(void);
+void MS5611_Get_TP(void);
 
 #ifdef __cplusplus
 }

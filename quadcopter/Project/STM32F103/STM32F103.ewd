@@ -522,7 +522,7 @@
         </option>
         <option>
           <name>JLinkInitialSpeed</name>
-          <state>32</state>
+          <state>2000</state>
         </option>
         <option>
           <name>CCDoJlinkMultiTarget</name>
